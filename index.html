@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boutique Style Taobao / Pinduoduo</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="phone" id="phone">
+    <button id="backBtn" class="back-btn" onclick="goBack()" style="display:none;">← Retour</button>
+<div class="error" id="errorBox">
+⚠️ <span id="errorText"></span>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- Onglets supérieurs style Taobao -->
+<div class="top-tabs">
+<div class="top-tab active" data-tab="produits">Produits</div>
+<div class="top-tab" data-tab="fabricants">Fabricants</div>
+<div class="top-tab" data-tab="monde">Monde entier</div>
+<div class="top-tab" data-tab="c">Connexion</div>
+</div>
+
+<!-- Barre de recherche style Pinduoduo -->
+<div class="search-header">
+    <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="sandales d'été" oninput="applyFilters()">
+        <span class="voice-icon">🎤</span>
+    </div>
+    <span class="scan-icon">📷</span>
+</div>
+
+<!-- Sidebar Panier (FONCTIONNEL PAIEMENT) -->
+<div class="cart-sidebar-overlay" id="cartSidebarOverlay" onclick="if(event.target === this) closeCartSidebar()">
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-sidebar-header">
+    <h3>Votre Panier</h3>
+<button class="icon-btn" onclick="viderPanier()" title="Vider le panier">🗑️</button>
+<button class="icon-btn" onclick="closeCartSidebar()">✕</button>
+  </div>
+  <div id="cartItemsList"></div>
+  <div class="cart-total">
+    <span>Total :</span>
+    <span id="cartTotalPrice">0 €</span>
+  </div>
+  
+  <!-- Sélection mode de paiement -->
+  <div class="payment-methods" style="margin: 15px 0;">
+    <label style="font-size:13px;color:#666;display:block;margin-bottom:8px;">Mode de paiement :</label>
+    <select id="paymentMethod" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:14px;">
+      <option value="card">💳 Carte bancaire</option>
+      <option value="mobile">📱 Mobile Money / Orange Money</option>
+      <option value="cash">💵 Paiement à la livraison</option>
+      <option value="paypal">🅿️ PayPal</option>
+      <option value="crypto">₿ Cryptomonnaies</option>
+      <option value="other">🔗 Autre (contactez-nous)</option>
+    </select>
+
+
+    </select>
+  </div>
+
+  <!-- 2 boutons -->
+  <div style="display:flex;gap:10px;">
+    <button class="cart-validate-btn" style="background:#ddd;color:#333;flex:1;" onclick="closeCartSidebar()">
+      Continuer l'achat
+    </button>
+    <button class="cart-validate-btn" style="flex:1;" onclick="goToPayment()">
+      Payer maintenant
+    </button>
+  </div>
+</div>
+</div>
+
+<!-- Écran 1 : Accueil -->
+<div class="screen active" id="screen1">
+<div class="home-banner-big">
+    <h2>🛒 GRANDE VENTE</h2>
+    <p>Promotions jusqu'à -60% !</p>
+    <p>Livraison rapide et gratuite dès 50€ d'achat</p>
+</div>
+
+<div class="home-actions">
+    <button class="action-btn" onclick="goToScreen(2)">Voir les produits</button>
+    <button class="action-btn outline" onclick="goToScreen(3)">Mes Favoris ❤️</button>
+    <button class="action-btn" onclick="goToScreen(8)">Nos Fabricants 🏭</button>
+    <button class="action-btn outline" onclick="goToScreen(10)">Garantie 🛡️</button>
+</div>
+</div>
+
+<!-- Écran 2 : Liste Produits -->
+<div class="screen" id="screen2">
+<div class="filters-row">
+<select class="filter-select" id="catFilter" onchange="applyFilters()">
+<option value="">Toutes catégories</option>
+<option value="electronique">Électronique</option>
+<option value="vetements">Vêtements</option>
+<option value="accessoires">Accessoires</option>
+</select>
+<select class="filter-select" id="priceSort" onchange="applyFilters()">
+<option value="">Trier par prix</option>
+<option value="asc">Prix croissant</option>
+<option value="desc">Prix décroissant</option>
+<option value="pop">Trier par popularité</option>
+</select>
+<div class="cart-mini" onclick="openCartSidebar()">
+    🛒 <span class="cart-badge" id="cart-badge">0</span>
+</div>
+</div>
+
+<div id="products" class="products-grid-taobao"></div>
+
+<!-- Pagination -->
+<div id="paginationContainer" style="display:flex; gap:10px; justify-content:center; padding:15px; align-items:center;">
+<button class="action-btn outline" onclick="previousPage()" style="flex:0; width:auto;">← Précédent</button>
+<span id="pageIndicator" style="flex:1; text-align:center; font-weight:bold;">Page 1</span>
+<button class="action-btn outline" onclick="nextPage()" style="flex:0; width:auto;">Suivant →</button>
+</div>
+</div>
+
+<!-- Écran 3 : Favoris -->
+<div class="screen" id="screen3">
+<div class="page-title">❤️ Mes Favoris</div>
+<div id="fav-list" class="products-grid-taobao"></div>
+</div>
+
+<!-- Écran 4 : Connexion / Inscription -->
+<div class="screen" id="screen4">
+<div class="page-title">Compte Utilisateur</div>
+<div class="form-container">
+<div class="form-tabs">
+<div class="form-tab active" id="tabLogin" onclick="switchForm('login')">Connexion</div>
+<div class="form-tab" id="tabRegister" onclick="switchForm('register')">Inscription</div>
+</div>
+
+<div id="loginForm">
+<div class="form-group">
+<label>Email</label>
+<input type="email" id="loginEmail" placeholder="Votre email">
+<div class="form-text-error" id="loginEmailErr">Email invalide</div>
+</div>
+<div class="form-group">
+<label>Mot de passe</label>
+<input type="password" id="loginPwd" placeholder="Votre mot de passe">
+<div class="form-text-error" id="loginPwdErr">Mot de passe obligatoire</div>
+</div>
+<button class="form-btn" onclick="login()">Se connecter</button>
+</div>
+
+<div id="registerForm" style="display:none;">
+<div class="form-group">
+<label>Nom complet</label>
+<input type="text" id="regName" placeholder="Votre nom">
+<div class="form-text-error" id="regNameErr">Nom obligatoire</div>
+</div>
+<div class="form-group">
+<label>Email</label>
+<input type="email" id="regEmail" placeholder="Email">
+<div class="form-text-error" id="regEmailErr">Email invalide</div>
+</div>
+<div class="form-group">
+<label>Mot de passe (min 6 caractères)</label>
+<input type="password" id="regPwd" placeholder="Mot de passe">
+<div class="form-text-error" id="regPwdErr">Mot de passe trop court</div>
+</div>
+<button class="form-btn" onclick="register()">Créer un compte</button>
+</div>
+</div>
+</div>
+
+<!-- Écran 5 : Profil + Historique -->
+<div class="screen" id="screen5">
+<div class="page-title">👤 Mon Compte</div>
+<div class="form-container" id="userProfile"></div>
+<div class="order-history">
+<h3>📦 Historique des commandes</h3>
+<div id="orderHistoryList"></div>
+</div>
+</div>
+
+<!-- Écran 6 : PAIEMENT -->
+<div class="screen" id="screen6">
+<div class="page-title">💳 Paiement</div>
+<div class="payment-form-wrap">
+<div class="order-recap" id="paymentRecap"></div>
+
+<div class="form-group">
+<label>Nom sur la carte</label>
+<input type="text" id="payName" placeholder="Nom complet">
+<div class="form-text-error" id="payNameErr">Nom obligatoire</div>
+</div>
+<div class="form-group">
+<label>Email</label>
+<input type="email" id="payEmail" placeholder="Email">
+<div class="form-text-error" id="payEmailErr">Email invalide</div>
+</div>
+<div class="form-group">
+<label>Téléphone</label>
+<input type="tel" id="payPhone" placeholder="Numéro de téléphone">
+<div class="form-text-error" id="payPhoneErr">Numéro invalide</div>
+</div>
+<div class="form-group">
+<label>Numéro de carte (16 chiffres)</label>
+<input type="text" id="payCard" placeholder="0000 0000 0000 0000" maxlength="19">
+<div class="form-text-error" id="payCardErr">Numéro invalide</div>
+</div>
+<div class="form-group">
+<label>Date d'expiration (MM/AA)</label>
+<input type="text" id="payDate" placeholder="01/30" maxlength="5">
+<div class="form-text-error" id="payDateErr">Date invalide</div>
+</div>
+<div class="form-group">
+<label>CVV (3 chiffres)</label>
+<input type="text" id="payCvv" placeholder="123" maxlength="3">
+<div class="form-text-error" id="payCvvErr">CVV invalide</div>
+</div>
+
+<button class="form-btn pay-btn" onclick="submitPayment()">Valider le paiement</button>
+</div>
+</div>
+
+<!-- Écran 7 : Confirmation commande -->
+<div class="screen" id="screen7">
+    <div class="page-title">✅ Commande validée</div>
+    <div class="confirm-wrap">
+        <div class="confirm-icon">🎉</div>
+        <h3 class="confirm-title">Merci pour votre achat !</h3>
+        <p class="confirm-text">Votre paiement a été accepté.<br>Votre commande est enregistrée et sera expédiée rapidement.</p>
+        
+        <div class="confirm-info">
+            <p>📦 Numéro de commande : <span id="cmdNumber"></span></p>
+            <p>🕒 Date : <span id="cmdDate"></span></p>
+        </div>
+
+        <div class="confirm-buttons">
+            <button class="form-btn outline-btn" onclick="goToScreen(2)">Continuer les achats</button>
+            <button class="form-btn" onclick="goToScreen(5)">Voir mon historique</button>
+        </div>
+    </div>
+</div>
+
+<!-- Écran 8 : Fabricants -->
+<div class="screen" id="screen8">
+<div class="page-title">🏭 Fabricants</div>
+<div class="fabricants-grid">
+    <div class="fabricant-card">
+        <div class="fab-avatar">👨‍💼</div>
+        <h4>Jean Dupont</h4>
+        <p>🌍 Pays : France</p>
+        <p>🏙️ Ville : Paris</p>
+        <p class="fab-prod">📦 Fabrique : Vêtements & accessoires</p>
+    </div>
+    <div class="fabricant-card">
+        <div class="fab-avatar">👩‍💼</div>
+        <h4>Amina Kone</h4>
+        <p>🌍 Pays : Sénégal</p>
+        <p>🏙️ Ville : Dakar</p>
+        <p class="fab-prod">📦 Fabrique : Articles mode & beauté</p>
+    </div>
+    <div class="fabricant-card">
+        <div class="fab-avatar">👨‍💼</div>
+        <h4>Li Wei</h4>
+        <p>🌍 Pays : Chine</p>
+        <p>🏙️ Ville : Guangzhou</p>
+        <p class="fab-prod">📦 Fabrique : Électronique & gadgets</p>
+    </div>
+</div>
+</div>
+
+<!-- Écran 9 : Monde entier -->
+<div class="screen" id="screen9">
+<div class="page-title">🌍 Monde entier</div>
+<div class="pays-liste">
+    <div class="pays-item">🇳🇬 NIGER</div>
+    <div class="pays-item">🇨🇳 Chine</div>
+    <div class="pays-item"> 🇲🇱 MALI</div>
+    <div class="pays-item">🇨🇮 Côte d'Ivoire</div>
+    <div class="pays-item">🇲🇦 Maroc</div>
+    <div class="pays-item">🇧🇷 Brésil</div>
+    <div class="pays-item">🇺🇸 États-Unis</div>
+    <div class="pays-item">BF BURKINA FASO</div>
+</div>
+</div>
+
+<!-- Écran 10 : Garantie -->
+<div class="screen" id="screen10">
+<div class="page-title">🛡️ Conditions de Garantie</div>
+<div class="garantie-container">
+    <div class="garantie-block">
+        <h4>✅ Garantie 14 jours retour gratuit</h4>
+        <p>Retour et remboursement sans justification pendant 14 jours après réception.</p>
+    </div>
+    <div class="garantie-block">
+        <h4>✅ Garantie qualité fabricant</h4>
+        <p>Tous nos produits sont certifiés et contrôlés avant expédition.</p>
+    </div>
+    <div class="garantie-block">
+        <h4>✅ Livraison assurée</h4>
+        <p>Colis perdu ou endommagé : renvoi gratuit ou remboursement intégral.</p>
+    </div>
+    <div class="garantie-block">
+        <h4>✅ Assistance 7j/7</h4>
+        <p>Service client disponible pour répondre à toutes vos questions.</p>
+    </div>
+</div>
+</div>
+
+<!-- Écran 11 : Messagerie -->
+<div class="screen" id="screen11">
+<div class="page-title">💬 Messagerie avec le vendeur</div>
+<div class="chat-container" id="chatContainer">
+    <!-- Chat vide par défaut. Les messages s'affichent après envoi. -->
+</div>
+<div class="chat-input-wrap">
+    <input type="text" id="chatInput" placeholder="Écrire un message...">
+    <button onclick="envoyerMessage()">Envoyer</button>
+</div>
+</div>
+
+<!-- Écran 12 : Ma Boutique -->
+<div class="screen" id="screen12">
+<div class="page-title">🏪 Ma Boutique</div>
+<div class="boutique-info">
+    <h3>Nom de la boutique : SEYNI DEALS & SERVICES</h3>
+    <p>⭐ Note : 4.8/5 (1256 avis)</p>
+    <p>📦 Nombre total produits : 120+</p>
+    <p>👥 Nombre clients : +5000</p>
+    <p>📍 Localisation : International</p>
+    <p>🚚 Délai livraison : 7 à 15 jours ouvrés</p>
+    <p>📞 Service client : Disponible 24h/24</p>
+</div>
+</div>
+
+<!-- Barre de navigation inférieure -->
+<div class="bottom-nav">
+<div class="nav-item active" onclick="goToScreen(1)">
+<span class="nav-icon">🏠</span>
+<span class="nav-text">Accueil</span>
+</div>
+<div class="nav-item" onclick="goToScreen(2)">
+<span class="nav-icon">🛍️</span>
+<span class="nav-text">Produits</span>
+</div>
+<div class="nav-item" onclick="goToScreen(10)">
+<span class="nav-icon">🛡️</span>
+<span class="nav-text">Garanti</span>
+</div>
+<div class="nav-item" onclick="goToScreen(11)">
+<span class="nav-icon">💬</span>
+<span class="nav-text">Messagerie</span>
+</div>
+<div class="nav-item" onclick="goToScreen(12)">
+<span class="nav-icon">👤</span>
+<span class="nav-text">Ma Boutique</span>
+</div>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
