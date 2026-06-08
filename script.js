@@ -7,7 +7,11 @@ const produits = [
         ancienPrix: "100,300 €",
         categorie: "vetements",
         image: "veste.jpg",
-        desc: "Confort et style pour les journées ensoleillées"
+        desc: "Confort et style pour les journées ensoleillées",
+        stock: 100,
+        coton: "100%",
+        taille:"m, l, xl,xxl,xxxl"
+        
     },
     {
         id: 2,
@@ -16,7 +20,10 @@ const produits = [
         ancienPrix: "59,99 €",
         categorie: "vetements",
         image:"robe.jpg",
-        desc: "Confort et style pour les journées ensoleillées"
+        desc: "Confort et style pour les journées ensoleillées",
+        stock: 100,
+        coton: "100%",
+        taille:"s, m, l, xl,xxl"
     },
     {
         id: 3,
@@ -25,7 +32,10 @@ const produits = [
         ancienPrix: "34,99 €",
         categorie: "vetements",
         image:"pulls.jpg",
-        desc: "Pull confortable pour toutes saisons"
+        desc: "Pull confortable pour toutes saisons",
+        stock: 100,
+        coton: "99%",
+        taille:"s, m, l, xl,xxl"
     },
     {
         id: 4,
@@ -34,7 +44,10 @@ const produits = [
         ancienPrix: "64,99 €",
         categorie: "vetements",
         image:"robe.jpg",
-        desc: "Robe fluide et élégante pour toutes occasions"
+        desc: "Robe fluide et élégante pour toutes occasions",
+        stock: 100,
+        coton: "100%",
+        taille:"s, m, l, xl,xxl"
     },
     {
         id: 5,
@@ -43,7 +56,11 @@ const produits = [
         ancienPrix: "49,99 €",
         categorie: "vetements",
         image:"shoes.jpg",
-        desc: "Chaussures tendance et confortables pour tous les jours"
+        desc: "Chaussures tendance et confortables pour tous les jours",
+        stock: 100,
+        qualite: "cuir synthétique",
+        taille:"39, 40, 41, 42, 43,44, 45"
+        
     },
     {
         id: 6,
@@ -52,7 +69,10 @@ const produits = [
         ancienPrix: "69,99 €",
         categorie: "vetements",
         image:"shoe.jpg",
-        desc: "Chaussures tendance et confortables pour tous les jours"
+        desc: "Chaussures tendance et confortables pour tous les jours",
+        stock: 100,
+        qualite: "cuir synthétique",
+        taille:"39, 40, 41, 42, 43,44, 45"
     },
     {
         id: 7,
@@ -61,7 +81,10 @@ const produits = [
         ancienPrix: "39,99 €",
         categorie: "accessoires",
         image: "sac.webp",
-        desc: "Sac tendance et résistant au quotidien"
+        desc: "Sac tendance et résistant au quotidien",
+        stock: 100,
+        materiau: "sac en toile résistante",
+            dimensions: "40cm x 30cm x 15cm"
     },
     {
         id: 8,
@@ -70,7 +93,9 @@ const produits = [
         ancienPrix: "24,99 €",
         categorie: "accessoires",
         image:"chaine.jpg",
-        desc: "Chaîne en argent élégante pour toutes occasions"
+        desc: "Chaîne en argent élégante pour toutes occasions",
+        stock: 100,
+        materiau: "argent 925",
     }, 
     {
         id: 9,
@@ -79,7 +104,8 @@ const produits = [
         ancienPrix: "79,99 €",
         categorie: "electronique",
         image:"casque.jpg",
-        desc: "Casque audio bluetooth avec son de qualité"
+        desc: "Casque audio bluetooth avec son de qualité",
+        stock: 100
     }, 
     {
         id: 10,
@@ -88,7 +114,10 @@ const produits = [
         ancienPrix: "29,99 €",
         categorie: "vetements",
         image:"t-shirt.jpg",
-        desc: "T-shirt officiel de votre groupe préféré"
+        desc: "T-shirt officiel de votre groupe préféré",
+        stock: 100,
+        coton: "100%",
+        taille:"s, m, l, xl,xxl"
     },
     {
         id: 11,
@@ -97,7 +126,8 @@ const produits = [
         ancienPrix: "119,99 €",
         categorie: "electronique",
         image: "montre.jpg",
-        desc: "Suivi activité et notifications"
+        desc: "Suivi activité et notifications",
+        stock: 100
     },
     {
         id: 12,
@@ -106,7 +136,8 @@ const produits = [
         ancienPrix: "69,99 €",
         categorie: "electronique",
         image:"clavier.jpg",
-        desc: "Clavier mécanique rétroéclairé"
+        desc: "Clavier mécanique rétroéclairé",
+        stock: 100
     },
     {
         id: 13,
@@ -115,7 +146,8 @@ const produits = [
         ancienPrix: "159,99 €",
         categorie: "electronique",
         image:"Ecran.jpg",
-        desc: "Écran pour travail et divertissement"
+        desc: "Écran pour travail et divertissement",
+        stock: 100
     },
     {
         id: 14,
@@ -133,7 +165,10 @@ const produits = [
         ancienPrix: "19,99 €",
         categorie: "vetements",
         image: "Robes.jpg",
-        desc: "Léger et respirant pour sport et loisirs"
+        desc: "Léger et respirant pour sport et loisirs",
+        stock: 100,
+        coton: "100%",
+        taille:"s, m, l, xl,xxl"
     },
     {
         id: 16,
@@ -151,7 +186,10 @@ const produits = [
         ancienPrix: "29,99 €",
         categorie: "vetements",
         image: "polo.jpg",
-        desc: "Polo élégant pour toutes les occasions"
+        desc: "Polo élégant pour toutes les occasions",
+        stock: 100,
+        coton: "100%",
+        taille:"s, m, l, xl,xxl"
     },  
     {
         id: 18,
@@ -160,7 +198,8 @@ const produits = [
         ancienPrix: "4300,59 €",
         categorie: "electronique",
         image: "smartphone.webp",
-        desc: "Smartphone haut de gamme avec camera de qualité"
+        desc: "Smartphone haut de gamme avec camera de qualité",
+        stock: 50
     },
     {
         id: 19,
@@ -169,7 +208,10 @@ const produits = [
         ancienPrix: "40,99 €",
         categorie: "vetements",
         image: "bonnet.jpg",
-        desc: "Bonnet chaud pour les jours froids"
+        desc: "Bonnet chaud pour les jours froids",
+        stock: 1000,
+        coton: "100%",
+        taille:"s, m, l, xl,xxl"
     },
     {
         id: 20,
@@ -178,7 +220,8 @@ const produits = [
         ancienPrix: "99,87 €",
         categorie: "accessoires",
         image: "souris.jpg",
-        desc: "Souris gaming ergonomique avec capteur de haute qualité"
+        desc: "Souris gaming ergonomique avec capteur de haute qualité",
+        stock: 57
     },
     {
         id: 21,
@@ -187,7 +230,10 @@ const produits = [
         ancienPrix: "199,99€",
         categorie: "vetements",
         image: "jacket.jpg",
-        desc: "pour lhiver et les journées fraîches, style intemporel"
+        desc: "pour lhiver et les journées fraîches, style intemporel",
+        stock: 25,
+        coton: "100%",
+        taille:"s, m, l, xl,xxl"
     },
     {
         id: 22,
@@ -196,7 +242,10 @@ const produits = [
         ancienPrix: "123,99 €",
         categorie: "vetements",
         image: "djodjine.jpg",
-        desc: "pour les journées ensoleillées"
+        desc: "pour les journées ensoleillées",
+        stock: 100,
+        coton: "100%",
+        taille:"s, m, l, xl,xxl"
     },
     {
         id: 23,
@@ -205,7 +254,10 @@ const produits = [
         ancienPrix: "40,99 €",
         categorie: "vetements",
         image: "bracelet.jpg",
-        desc: "Bracelet en cuir naturel"
+        desc: "Bracelet en cuir naturel",
+        stock: 100,
+        coton: "100%",
+        taille:"s, m, l, xl,xxl"
     },
     {
         id: 24,
@@ -214,7 +266,8 @@ const produits = [
         ancienPrix: "79,99 €",
         categorie: "accessoires",
         image: "merche.jpg",
-        desc: "Perruque de style fashion pour un look décontracté"
+        desc: "Perruque de style fashion pour un look décontracté",
+        stock: 30
     },
     {
         id: 25,
@@ -223,7 +276,7 @@ const produits = [
         ancienPrix: "4300,59 €",
         categorie: "electronique",
         image: "oppo.jpg",
-        desc: "Smartphone haut de gamme avec camera de qualité"
+        desc: "Smartphone haut de gamme avec camera de qualité",
     },
     {
         id: 26,
@@ -232,7 +285,8 @@ const produits = [
         ancienPrix: "39,99 €",
         categorie: "accessoires",
         image: "parfums.jpg",
-        desc: "Parfum de qualité supérieure pour un parfum durable"
+        desc: "Parfum de qualité supérieure pour un parfum durable",
+        stock: 100
     },
     {
         id: 27,
@@ -241,7 +295,8 @@ const produits = [
         ancienPrix: "40,99 €",
         categorie: "accessoires",
         image: "parapluie.jpg",
-        desc: "Parapluie pratique pour les jours de pluie"
+        desc: "Parapluie pratique pour les jours de pluie",
+        stock: 100
     },
     {
         id: 28,
@@ -250,7 +305,10 @@ const produits = [
         ancienPrix: "1500,00 €",
         categorie: "accessoires",
         image: "louis vuitton.jpg",
-        desc: "Sac à main emblématique de la marque"
+        desc: "Sac à main emblématique de la marque",
+        stock: 50,
+            materiau: "cuir de haute qualité",
+            dimensions: "30cm x 20cm x 10cm"
     },
     {
         id: 29,
@@ -259,7 +317,8 @@ const produits = [
         ancienPrix: "89,99 €",
         categorie: "accessoires",
         image: "crossbody.jpg",
-        desc: "crossbody bag tendance pour un look décontracté et pratique"
+        desc: "crossbody bag tendance pour un look décontracté et pratique",
+        stock: 100
     },
     {
         id: 30,
@@ -268,7 +327,10 @@ const produits = [
         ancienPrix: "299,99 €",
         categorie: "accessoires",
         image: "gourde.jpg",
-        desc: "Gourde tendance pour un look décontracté et pratique"
+        desc: "Gourde tendance pour un look décontracté et pratique",
+        stock: 100,
+        materiau: "acier inoxydable de haute qualité",
+        capacite: "500ml"
     },
     {
         id: 31,
@@ -277,7 +339,8 @@ const produits = [
         ancienPrix: "2000,00 €",
         categorie: "electronique",
         image: "laptop.jpg",
-        desc: "Laptop puissant pour le travail et le divertissement"
+        desc: "Laptop puissant pour le travail et le divertissement",
+        stock: 50
     },
     {
         id: 32,
@@ -286,7 +349,10 @@ const produits = [
         ancienPrix: "79,99 €",
         categorie: "accessoires",
         image: "shoewoman.jpg",
-        desc: "Caméra de sécurité intelligente pour la surveillance à domicile"
+        desc: "Caméra de sécurité intelligente pour la surveillance à domicile",
+        stock: 100,
+        qualite: "cuir synthétique",
+        taille:"36, 37, 38, 39, 40,41, 42"
     },
     {
         id: 33,
@@ -295,7 +361,10 @@ const produits = [
         ancienPrix: "129,99 €",
         categorie: "accessoires",
         image: "handbag.jpg",
-        desc: "Sac à main tendance et pratique pour transporter vos affaires avec style"
+        desc: "Sac à main tendance et pratique pour transporter vos affaires avec style",
+        stock: 500,
+        materiau: "cuir synthétique de haute qualité",
+        dimensions: "25cm x 15cm x 10cm"
     },
     {
         id: 34,
@@ -304,7 +373,10 @@ const produits = [
         ancienPrix: "69,99 €",
         categorie: "accessoires",
         image: "bag.jpg",
-        desc: "Sac à dos pour school tendance et pratique pour transporter vos affaires scolaires avec style"
+        desc: "Sac à dos pour school tendance et pratique pour transporter vos affaires scolaires avec style",
+        stock: 2000,
+            materiau: "toile résistante de haute qualité",
+            dimensions: "30cm x 20cm x 10cm"
     },
     {
         id: 35,
@@ -313,7 +385,11 @@ const produits = [
         ancienPrix: "1099 €",
         categorie: "accessoires",
         image: "luxe.jpg",
-        desc: "rose luxe pour un look élégant et sophistiqué"
+        desc: "rose luxe pour un look élégant et sophistiqué",
+        stock: 10,
+        materiau: "robe de haute qualité",
+        dimensions: "longueur 150cm"
+
     }
 ];
 
@@ -1089,4 +1165,3 @@ function submitPayment() {
     goToScreen(7);
     showToast('Commande validée avec succès !');
 }
-
