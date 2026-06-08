@@ -130,7 +130,11 @@
 <!-- Écran 4 : Connexion / Inscription -->
 <div class="screen" id="screen4">
 <div class="page-title">Compte Utilisateur</div>
-<div class="form-container">
+<div class="login-prompt-card" id="loginPromptCard">
+    <p>Pour accéder à votre compte, cliquez sur Connexion puis entrez votre nom/prénom ou votre email et votre mot de passe.</p>
+    <button class="form-btn" onclick="showLoginPrompt()">Connexion</button>
+</div>
+<div class="form-container" id="formPanel" style="display:none;">
 <div class="form-tabs">
 <div class="form-tab active" id="tabLogin" onclick="switchForm('login')">Connexion</div>
 <div class="form-tab" id="tabRegister" onclick="switchForm('register')">Inscription</div>
@@ -138,9 +142,9 @@
 
 <div id="loginForm">
 <div class="form-group">
-<label>Email</label>
-<input type="email" id="loginEmail" placeholder="Votre email">
-<div class="form-text-error" id="loginEmailErr">Email invalide</div>
+<label>Nom / prénom ou email</label>
+<input type="text" id="loginEmail" placeholder="Nom, prénom ou email">
+<div class="form-text-error" id="loginEmailErr">Nom/prénom ou email requis</div>
 </div>
 <div class="form-group">
 <label>Mot de passe</label>

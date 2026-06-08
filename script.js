@@ -660,32 +660,34 @@ function loginWithGmail() {
     goToScreen(5);
 }
 
-function showEmailLogin() {
-    // Masquer les options principales et afficher le formulaire
-    const loginOptions = document.getElementById('loginOptions');
-    const formTabs = document.querySelector('.form-tabs');
-    const separator = document.querySelector('[style*="display:flex; align-items:center"]');
-    
-    if(loginOptions) loginOptions.style.display = 'none';
-    if(separator) separator.style.display = 'none';
-    if(formTabs) formTabs.style.display = 'flex';
-    
+function showLoginPrompt() {
+    const promptCard = document.getElementById('loginPromptCard');
+    const panel = document.getElementById('formPanel');
+    if(promptCard) promptCard.style.display = 'none';
+    if(panel) panel.style.display = 'block';
     switchForm('login');
-    document.getElementById('loginEmail').focus();
+    const input = document.getElementById('loginEmail');
+    if(input) input.focus();
 }
 
-
 function login() {
-    const email = document.getElementById('loginEmail').value;
-    const pwd = document.getElementById('loginPwd').value;
-    
-    if(!email || !pwd) {
-        if(!email) document.getElementById('loginEmailErr').style.display = 'block';
+    const identifier = document.getElementById('loginEmail').value.trim();
+    const pwd = document.getElementById('loginPwd').value.trim();
+
+    document.getElementById('loginEmailErr').style.display = 'none';
+    document.getElementById('loginPwdErr').style.display = 'none';
+
+    if(!identifier || !pwd) {
+        if(!identifier) document.getElementById('loginEmailErr').style.display = 'block';
         if(!pwd) document.getElementById('loginPwdErr').style.display = 'block';
         return;
     }
 
-    utilisateurConnecte = { email, nom: email.split('@')[0] };
+    const isEmail = identifier.includes('@');
+    utilisateurConnecte = {
+        email: isEmail ? identifier : '',
+        nom: isEmail ? identifier.split('@')[0] : identifier
+    };
     sauvegarderLocalStorage();
     showToast('Connecté avec succès !');
     afficherProfil();
@@ -935,6 +937,10 @@ function setupTopTabs() {
             if(tabName === 'produits') goToScreen(2);
             else if(tabName === 'fabricants') goToScreen(8);
             else if(tabName === 'monde') goToScreen(9);
+            else if(tabName === 'c') {
+                goToScreen(4);
+                showLoginPrompt();
+            }
         });
     });
 }
